@@ -35,9 +35,20 @@ public class MyArrayList<E> implements MyReverseList<E> {
 	 * TODO: Method header comment here
 	 */
     public void reverseRegion(int fromIndex, int toIndex){
-       /**
-        * TODO: Add your solution here
-        */
+        if(fromIndex >= toIndex){
+            return;
+        }
+        if(fromIndex < 0 || toIndex < 0 || fromIndex > this.size() || 
+        toIndex > this.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        MyArrayList newArrayList = new MyArrayList(this.data);
+        int placeHolder  = toIndex;
+        for(int i = fromIndex; i <= toIndex; i++){
+            this.data[i] = newArrayList.get(placeHolder);
+            placeHolder--;
+        }
+
     }
 
     @Override
