@@ -4,6 +4,7 @@
 
 //other import statements
 
+import static org.junit.Assert.*;
 import org.junit.*;
 
 //IMPORTANT: DO NOT MODIFY THE TEST HEADERS!
