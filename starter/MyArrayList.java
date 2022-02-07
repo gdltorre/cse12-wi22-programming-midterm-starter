@@ -1,13 +1,15 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
- * File description: 
+ * Name: Gerardo De La Torre
+ * ID: A16033883
+ * Email: gdelator@ucsd.edu
+ * File description: MyArrayList.java is a reduced version of the
+ * MyArrayList.java that we created during PA2. MyArrayList.java contains 
+ * implementation of a few methods, in particular reverseRegion
  */
 
 /**
- * TODO: Add class header
+ * MyArrayList contains several methods that are useful in modifying or
+ * displaying information about the ArrayList. 
  */
 public class MyArrayList<E> implements MyReverseList<E> {
     static final int DEFAULT_CAPACITY = 5;
@@ -32,17 +34,29 @@ public class MyArrayList<E> implements MyReverseList<E> {
     }
 
     /**
-	 * TODO: Method header comment here
+	 * Method reverseRegion reverses the elements in the list between
+     * fromIndex and toIndex
 	 */
     public void reverseRegion(int fromIndex, int toIndex){
+        /** If fromIndex is greater than toIndex, we should 
+         * leave the list unchanged */
         if(fromIndex >= toIndex){
             return;
         }
+        /** If either fromIndex or toIndex is out of bounds, then we
+         * should throw an IndexOutOfBoundsException 
+         * and leave the list unchanged */
         if(fromIndex < 0 || toIndex < 0 || fromIndex > this.size() || 
         toIndex > this.size()){
             throw new IndexOutOfBoundsException();
         }
+        /** We create a new MyArrayList to have a reference to 
+         * how did the original MyArrayList looked */
         MyArrayList newArrayList = new MyArrayList(this.data);
+
+        /** placeHolder is an int utilized as the index going 
+         * from the end of the MyArrayList to fromIndex
+         */
         int placeHolder  = toIndex;
         for(int i = fromIndex; i <= toIndex; i++){
             this.data[i] = newArrayList.get(placeHolder);

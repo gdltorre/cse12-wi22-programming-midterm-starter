@@ -1,16 +1,17 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
- * File description: 
+ * Name: Gerardo De La Torre
+ * ID: A16033883
+ * Email: gdelator@ucsd.edu
+ * File description: MyLinkedList.java is a reduced version of the
+ * MyLinkedList.java that we created during PA3. MyLinkedList.java contains 
+ * implementation of a few methods, in particular reverseRegion
  */
 
 /**
- * TODO: Add class header
+ * The class MyLinkedList contains implementation of several methods
+ * that are useful in modifying or accessing the node's data of the LinkedList
  */
 public class MyLinkedList<E> implements MyReverseList<E>{
-
     int size;
     Node head;
     Node tail;
@@ -120,12 +121,18 @@ public class MyLinkedList<E> implements MyReverseList<E>{
 
 
     /**
-     * TODO: Method header comment here
+     * Method reverseRegion reverses the elements in the list between
+     * fromIndex and toIndex
      */
     public void reverseRegion(int fromIndex, int toIndex){
+        /** If fromIndex is greater than toIndex, we should 
+         * leave the list unchanged */
         if(fromIndex >= toIndex){
             return;
         }
+        /** If either fromIndex or toIndex is out of bounds, then we
+         * should throw an IndexOutOfBoundsException 
+         * and leave the list unchanged */
         if(fromIndex < 0 || toIndex < 0 || fromIndex > this.size() || 
         toIndex > this.size()){
             throw new IndexOutOfBoundsException();
@@ -134,13 +141,14 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         MyLinkedList newLinkedList = new MyLinkedList(null);
         // If statement to check if the original MyLinkedList is not empty
         if(this.head.getNext() != null){
-            // If the original MyLinkedList is not empty, then we are going to
-            // "insert" every value through the while loop
-
-            // currNode is a reference to the current node we are dealing with
+            /** currNode is a reference to the current node we are dealing with
+             * reference starts with the head */
             Node currNode = this.head;
 
-            Node toBeAddedNode = newLinkedList.head;
+            /**
+             * newCurrNode is a reference to the current node we are working
+             * on in newLinkedList. Reference starts with the head.*/
+            Node newCurrNode = newLinkedList.head;
 
             // If the next node of currNode is null, then we have reached the
             // end of the list, otherwise we keep going.
@@ -149,31 +157,33 @@ public class MyLinkedList<E> implements MyReverseList<E>{
 
                 //currNode.getNext().setPrev(newNode);
 
-                newNode.setPrev(toBeAddedNode);
+                newNode.setPrev(newCurrNode);
                 //newNode.setPrev(currNode);
-                newNode.setNext(toBeAddedNode.getNext().getNext());
+                newNode.setNext(newCurrNode.getNext()); // .getNext().getNext()
                 //newNode.setNext(currNode.getNext().getNext()); // fault
-                toBeAddedNode.setNext(newNode);
+                newCurrNode.setNext(newNode);
                 //currNode.setNext(newNode);
 
                 // move currNode to the next node
                 currNode = currNode.getNext();
+                newCurrNode = newCurrNode.getNext();
 
                 // increase the size of the list
                 newLinkedList.size++;
             }
             int placeHolder = toIndex;
             currNode = this.head;
-            for(int i = 0 ; i < toIndex; i++){
+            /** For loop to move currNode to the node at fromIndex */
+            for(int i = 0 ; i < fromIndex; i++){
                 currNode = currNode.getNext();
             }
+            /**  For loop to reverse the elements of the LinkedList*/
             for(int i = fromIndex; i <= toIndex; i++){
                 E elementHolder = (E) newLinkedList.get(placeHolder);
                 currNode.setElement(elementHolder);
                 placeHolder--;
+                currNode = currNode.getNext();
             }
-
-
         }
     }
 
