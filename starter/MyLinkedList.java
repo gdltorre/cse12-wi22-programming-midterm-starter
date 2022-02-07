@@ -123,7 +123,48 @@ public class MyLinkedList<E> implements MyReverseList<E>{
      * TODO: Method header comment here
      */
     public void reverseRegion(int fromIndex, int toIndex){
-        //TODO: Add your solution here
+        if(fromIndex >= toIndex){
+            return;
+        }
+        if(fromIndex < 0 || toIndex < 0 || fromIndex > this.size() || 
+        toIndex > this.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        // Creating a new empty MyLinkedList
+        MyLinkedList newLinkedList = new MyLinkedList(null);
+        // If statement to check if the original MyLinkedList is not empty
+        if(head.getNext() != null){
+            // If the original MyLinkedList is not empty, then we are going to
+            // "insert" every value through the while loop
+            // currNode is a reference to the current node we are dealing with
+            Node currNode = head;
+            // If the next node of currNode is null, then we have reached the
+            // end of the list, otherwise we keep going.
+            while(currNode.getNext() != null){
+                Node newNode = new Node(head.getNext().getElement());
+                //currNode.getNext().setPrev(newNode);
+                newNode.setPrev(currNode);
+                newNode.setNext(currNode.getNext().getNext()); // fault
+                currNode.setNext(newNode);
+
+                // move currNode to the next node
+                currNode = currNode.getNext();
+
+                // increase the size of the list
+                this.size++;
+            }
+        }
+        int placeHolder  = toIndex;
+        // For loop for reaching the desired node at index toIndex
+        for(int i = 0; i < toIndex; i++){
+
+        }
+
+
+        for(int i = fromIndex; i <= toIndex; i++){
+            this.data[i] = newArrayList.get(placeHolder);
+            placeHolder--;
+        }
     }
 
     @Override
