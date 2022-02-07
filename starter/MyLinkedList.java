@@ -133,37 +133,47 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         // Creating a new empty MyLinkedList
         MyLinkedList newLinkedList = new MyLinkedList(null);
         // If statement to check if the original MyLinkedList is not empty
-        if(head.getNext() != null){
+        if(this.head.getNext() != null){
             // If the original MyLinkedList is not empty, then we are going to
             // "insert" every value through the while loop
+
             // currNode is a reference to the current node we are dealing with
-            Node currNode = head;
+            Node currNode = this.head;
+
+            Node toBeAddedNode = newLinkedList.head;
+
             // If the next node of currNode is null, then we have reached the
             // end of the list, otherwise we keep going.
-            while(currNode.getNext() != null){
-                Node newNode = new Node(head.getNext().getElement());
+            while(currNode.getNext() != null){ // If the while does not work we can try using .size and for loop
+                Node newNode = new Node(this.head.getNext().getElement());
+
                 //currNode.getNext().setPrev(newNode);
-                newNode.setPrev(currNode);
-                newNode.setNext(currNode.getNext().getNext()); // fault
-                currNode.setNext(newNode);
+
+                newNode.setPrev(toBeAddedNode);
+                //newNode.setPrev(currNode);
+                newNode.setNext(toBeAddedNode.getNext().getNext());
+                //newNode.setNext(currNode.getNext().getNext()); // fault
+                toBeAddedNode.setNext(newNode);
+                //currNode.setNext(newNode);
 
                 // move currNode to the next node
                 currNode = currNode.getNext();
 
                 // increase the size of the list
-                this.size++;
+                newLinkedList.size++;
             }
-        }
-        int placeHolder  = toIndex;
-        // For loop for reaching the desired node at index toIndex
-        for(int i = 0; i < toIndex; i++){
+            int placeHolder = toIndex;
+            currNode = this.head;
+            for(int i = 0 ; i < toIndex; i++){
+                currNode = currNode.getNext();
+            }
+            for(int i = fromIndex; i <= toIndex; i++){
+                E elementHolder = (E) newLinkedList.get(placeHolder);
+                currNode.setElement(elementHolder);
+                placeHolder--;
+            }
 
-        }
 
-
-        for(int i = fromIndex; i <= toIndex; i++){
-            this.data[i] = newArrayList.get(placeHolder);
-            placeHolder--;
         }
     }
 
