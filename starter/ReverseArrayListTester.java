@@ -133,4 +133,18 @@ public class ReverseArrayListTester {
         assertArrayEquals(baseList.data, baseListUnchanged.data);
     }
 
+    /** Tests the reverseRegion method when called on an empty list 
+     *  Ideally, the method should not crash and just return an IOOBE. */
+    @Test
+    public void testReverseEmptyList(){
+        boolean EXCEPTION_THROWN = false;
+        try{
+            emptyList.reverseRegion(2, 4);
+        }
+        catch(IndexOutOfBoundsException e){
+            EXCEPTION_THROWN = true;
+        }
+        assertTrue(EXCEPTION_THROWN);
+    }
+
 }
