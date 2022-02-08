@@ -73,21 +73,21 @@ public class ReverseArrayListTester {
     }
 
     /**
-     * Tests reverseRegion method when calling it on an empty MyArrayList.
-     * Theoretically, the test should return an IndexOutOfBounds exception
-     * because even though the index are within the MyArrayList capacity
-     * the list is empty
+     * Tests reverseRegion method when the indices are the bounds of the List.
+     * The tests is qualitatively different from the other tests because 
+     * in this test we are checking that our implementation of the method
+     * does not throw any error when looping through the entirety of the
+     * ArrayList or that we try to access an indice bigger than the ArrayList
+     * by accident.
     */
     @Test
     public void testReverseCustom(){
-        boolean EXCEPTION_THROWN = false;
-        try{
-            emptyList.reverseRegion(2, 4);
-        }
-        catch(IndexOutOfBoundsException e){
-            EXCEPTION_THROWN = true;
-        }
-        assertTrue(EXCEPTION_THROWN);
+        baseList.reverseRegion(0, 4);
+        assertEquals(baseList.data[0], baseListUnchanged.data[4]);
+        assertEquals(baseList.data[1], baseListUnchanged.data[3]);
+        assertEquals(baseList.data[2], baseListUnchanged.data[2]);
+        assertEquals(baseList.data[3], baseListUnchanged.data[1]);
+        assertEquals(baseList.data[4], baseListUnchanged.data[0]);
     }
 
     /**
@@ -120,20 +120,6 @@ public class ReverseArrayListTester {
         }
         assertTrue("An IndexOutOfBounds exception should be " +
                     "thrown", EXCEPTION_THROWN);
-    }
-
-    /**
-     * Tests reverseRegion method when fromIndex and toIndex 
-     * are the list's bounds.
-     */
-    @Test
-    public void testReverseRegionIndexAreBounds(){
-        baseList.reverseRegion(0, 4);
-        assertEquals(baseList.data[0], baseListUnchanged.data[4]);
-        assertEquals(baseList.data[1], baseListUnchanged.data[3]);
-        assertEquals(baseList.data[2], baseListUnchanged.data[2]);
-        assertEquals(baseList.data[3], baseListUnchanged.data[1]);
-        assertEquals(baseList.data[4], baseListUnchanged.data[0]);
     }
 
     /**

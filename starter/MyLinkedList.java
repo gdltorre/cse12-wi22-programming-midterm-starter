@@ -130,6 +130,7 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         if(fromIndex >= toIndex){
             return;
         }
+
         /** If either fromIndex or toIndex is out of bounds, then we
          * should throw an IndexOutOfBoundsException 
          * and leave the list unchanged */
@@ -137,6 +138,7 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         toIndex > this.size()){
             throw new IndexOutOfBoundsException();
         }
+
         // Creating a new empty MyLinkedList
         MyLinkedList newLinkedList = new MyLinkedList(null);
         
@@ -153,18 +155,14 @@ public class MyLinkedList<E> implements MyReverseList<E>{
 
             // If the next node of currNode is null, then we have reached the
             // end of the list, otherwise we keep going.
-            while(currNode.getNext() != null){ // If the while does not work we can try using .size and for loop
+            while(currNode.getNext() != null){
                 Node newNode = new Node(currNode.getNext().getElement());
 
-                //currNode.getNext().setPrev(newNode);
-
+                /** Updating the pointers of newNode and newCurrNode*/
                 newNode.setPrev(newCurrNode);
-                //newNode.setPrev(currNode);
-                newNode.setNext(newCurrNode.getNext()); // .getNext().getNext()
-                //newNode.setNext(currNode.getNext().getNext()); // fault
+                newNode.setNext(newCurrNode.getNext());
                 newCurrNode.next.setPrev(newNode);
                 newCurrNode.setNext(newNode);
-                //currNode.setNext(newNode);
 
                 // move currNode to the next node
                 currNode = currNode.getNext();
@@ -173,8 +171,10 @@ public class MyLinkedList<E> implements MyReverseList<E>{
                 // increase the size of the list
                 newLinkedList.size++;
             }
+            
             int placeHolder = toIndex;
             currNode = this.head;
+
             /** For loop to move currNode to the node at fromIndex
              *  We do fromIndex + 1 because in theory head is not located on
              *  index 0, but rather the hidden index before that
