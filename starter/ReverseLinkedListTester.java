@@ -11,8 +11,8 @@ import org.junit.*;
 /**
  * This class contains various test cases to test the reverseRegion method
  */
-public class ReverseArrayListTester {
-    private MyArrayList baseList, baseListUnchanged, emptyList;
+public class ReverseLinkedListTester {
+    private MyLinkedList baseList, baseListUnchanged, emptyList;
 
     // Created an array that contains the data that will be 
     // passed to the ArrayList used for testing
@@ -24,9 +24,9 @@ public class ReverseArrayListTester {
     @Before
     public void setUp(){
         // Setting up the ArrayList that will be used for testing
-        baseList = new MyArrayList(dataForList);
-        baseListUnchanged = new MyArrayList(dataForList);
-        emptyList = new MyArrayList(null);
+        baseList = new MyLinkedList(dataForList);
+        baseListUnchanged = new MyLinkedList(dataForList);
+        emptyList = new MyLinkedList(null);
     }
 
 
@@ -53,8 +53,14 @@ public class ReverseArrayListTester {
      */
     @Test
     public void testReverseFromIndexGreater(){
+        boolean EQUALS = true;
         baseList.reverseRegion(3, 2);
-        assertArrayEquals(baseList.data, baseListUnchanged.data);
+        for(int i = 0; i < baseList.size(); i++){
+            if(baseList.get(i) != baseListUnchanged.get(i)){
+                EQUALS = false;
+            }
+        }
+        assertTrue("The data of both LinkedLists should be equal", EQUALS);
     }
 
     /**
@@ -64,12 +70,12 @@ public class ReverseArrayListTester {
     @Test
     public void testReverseIndexWithinBounds(){
         baseList.reverseRegion(1, 3);
-        assertEquals(baseList.data[1], baseListUnchanged.data[3]);
-        assertEquals(baseList.data[1], 4);
-        assertEquals(baseList.data[2], baseListUnchanged.data[2]);
-        assertEquals(baseList.data[2], 3);
-        assertEquals(baseList.data[3], baseListUnchanged.data[1]);
-        assertEquals(baseList.data[3], 2);
+        assertEquals(baseList.get(1), baseListUnchanged.get(3));
+        assertEquals(baseList.get(1), 4);
+        assertEquals(baseList.get(2), baseListUnchanged.get(2));
+        assertEquals(baseList.get(2), 3);
+        assertEquals(baseList.get(3), baseListUnchanged.get(1));
+        assertEquals(baseList.get(3), 2);
     }
 
     /**
@@ -129,11 +135,11 @@ public class ReverseArrayListTester {
     @Test
     public void testReverseRegionIndexAreBounds(){
         baseList.reverseRegion(0, 4);
-        assertEquals(baseList.data[0], baseListUnchanged.data[4]);
-        assertEquals(baseList.data[1], baseListUnchanged.data[3]);
-        assertEquals(baseList.data[2], baseListUnchanged.data[2]);
-        assertEquals(baseList.data[3], baseListUnchanged.data[1]);
-        assertEquals(baseList.data[4], baseListUnchanged.data[0]);
+        assertEquals(baseList.get(0), baseListUnchanged.get(4));
+        assertEquals(baseList.get(1), baseListUnchanged.get(3));
+        assertEquals(baseList.get(2), baseListUnchanged.get(2));;
+        assertEquals(baseList.get(3), baseListUnchanged.get(1));;
+        assertEquals(baseList.get(4), baseListUnchanged.get(0));;
     }
 
     /**
@@ -144,7 +150,11 @@ public class ReverseArrayListTester {
     public void testReverseRegionCalledTwice(){
         baseList.reverseRegion(0, 4);
         baseList.reverseRegion(0, 4);
-        assertArrayEquals(baseList.data, baseListUnchanged.data);
+        assertEquals(baseList.get(0), baseListUnchanged.get(0));
+        assertEquals(baseList.get(1), baseListUnchanged.get(1));
+        assertEquals(baseList.get(2), baseListUnchanged.get(2));;
+        assertEquals(baseList.get(3), baseListUnchanged.get(3));;
+        assertEquals(baseList.get(4), baseListUnchanged.get(4));;
     }
 
 }

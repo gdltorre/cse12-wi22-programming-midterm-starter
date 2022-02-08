@@ -139,6 +139,7 @@ public class MyLinkedList<E> implements MyReverseList<E>{
         }
         // Creating a new empty MyLinkedList
         MyLinkedList newLinkedList = new MyLinkedList(null);
+        
         // If statement to check if the original MyLinkedList is not empty
         if(this.head.getNext() != null){
             /** currNode is a reference to the current node we are dealing with
@@ -153,7 +154,7 @@ public class MyLinkedList<E> implements MyReverseList<E>{
             // If the next node of currNode is null, then we have reached the
             // end of the list, otherwise we keep going.
             while(currNode.getNext() != null){ // If the while does not work we can try using .size and for loop
-                Node newNode = new Node(this.head.getNext().getElement());
+                Node newNode = new Node(currNode.getNext().getElement());
 
                 //currNode.getNext().setPrev(newNode);
 
@@ -161,6 +162,7 @@ public class MyLinkedList<E> implements MyReverseList<E>{
                 //newNode.setPrev(currNode);
                 newNode.setNext(newCurrNode.getNext()); // .getNext().getNext()
                 //newNode.setNext(currNode.getNext().getNext()); // fault
+                newCurrNode.next.setPrev(newNode);
                 newCurrNode.setNext(newNode);
                 //currNode.setNext(newNode);
 
@@ -173,8 +175,11 @@ public class MyLinkedList<E> implements MyReverseList<E>{
             }
             int placeHolder = toIndex;
             currNode = this.head;
-            /** For loop to move currNode to the node at fromIndex */
-            for(int i = 0 ; i < fromIndex; i++){
+            /** For loop to move currNode to the node at fromIndex
+             *  We do fromIndex + 1 because in theory head is not located on
+             *  index 0, but rather the hidden index before that
+             */
+            for(int i = 0 ; i < fromIndex + 1; i++){
                 currNode = currNode.getNext();
             }
             /**  For loop to reverse the elements of the LinkedList*/
